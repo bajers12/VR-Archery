@@ -58,20 +58,24 @@ public class Arrow : MonoBehaviour
     }
 
 
+// This mask excludes layers 8 and 9.
+    private int collisionMask = ~( (1 << 8) | (1 << 9) );
+
     private void CheckCollision()
     {
-        if (Physics.Linecast(_lastPosition, tip.position, out RaycastHit hitInfo)){
-            if (hitInfo.transform.gameObject.layer != 8 && hitInfo.transform.gameObject.layer != 9){
-                if (hitInfo.transform.gameObject.TryGetComponent(out Rigidbody body)){
-
-                    _rb.interpolation = RigidbodyInterpolation.None;
-                    transform.parent = hitInfo.transform;
-                    body.AddForce(_rb.velocity, ForceMode.Impulse);
-                }
-                Stop();
+        if (Physics.Linecast(_lastPosition, tip.position, out RaycastHit hitInfo, collisionMask))
+        {
+            // Proceed only if the hit object is NOT on layer 8 or 9.
+            if (hitInfo.transform.gameObject.TryGetComponent(out Rigidbody body))
+            {
+                _rb.interpolation = RigidbodyInterpolation.None;
+                transform.parent = hitInfo.transform;
+                body.AddForce(_rb.velocity, ForceMode.Impulse);
             }
+            Stop();
         }
     }
+
     private void Stop(){
         _inAir = false;
         SetPhysics(false);

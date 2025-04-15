@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 2852279083193432559}
   - component: {fileID: 31986988921228581}
   - component: {fileID: 8297719177223879328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlankBow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
