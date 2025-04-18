@@ -568,6 +568,16 @@ Transform:
   - {fileID: 705507995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &683785125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8379401747686745631, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+  m_PrefabInstance: {fileID: 247798877756245124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &683785126 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+  m_PrefabInstance: {fileID: 247798877756245124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &685563746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2079,6 +2089,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3777083094241235602, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4912947000182309054, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -2135,6 +2149,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8379401747686745631, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -2143,6 +2161,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 9071609747503105921, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: arrow
+      value: 
+      objectReference: {fileID: 9197445897143470594, guid: 3e5280d8772fa4a479db4b8a0d22eaa1, type: 3}
+    - target: {fileID: 9071609747503105921, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: notch
+      value: 
+      objectReference: {fileID: 683785125}
+    - target: {fileID: 9071609747503105921, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 9197445897143470594, guid: 3e5280d8772fa4a479db4b8a0d22eaa1, type: 3}
+    - target: {fileID: 9071609747503105921, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: notchTransform
+      value: 
+      objectReference: {fileID: 683785126}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
