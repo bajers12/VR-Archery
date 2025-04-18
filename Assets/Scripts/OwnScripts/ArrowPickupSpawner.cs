@@ -20,20 +20,24 @@ public class ArrowPickupSpawner : MonoBehaviour
         SpawnArrow();
     }
 
+        // 1) Instantiate the arrow as a child of this box‑spawner
     void SpawnArrow()
     {
-        // 1) Instantiate the arrow as a child of this box‑spawner
+        // 1) Instantiate without a parent, so it comes in at the correct world‐scale:
         currentArrow = Instantiate(
             arrowPrefab,
             spawnPoint.position,
-            spawnPoint.rotation,
-            transform
+            spawnPoint.rotation
         );
 
-        // 2) Hook into its grab event so we know when it's picked up
+        // 2) Now parent it—but tell Unity to keep its world‐space position, rotation AND scale:
+        currentArrow.transform.SetParent(transform, true);
+
+        // 3) Hook into its grab event
         var grab = currentArrow.GetComponent<XRGrabInteractable>();
         grab.selectEntered.AddListener(OnArrowGrabbed);
-    }
+    }   
+
 
     void OnArrowGrabbed(SelectEnterEventArgs args)
     {

@@ -1375,6 +1375,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow
       objectReference: {fileID: 0}
+    - target: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032588223497525683, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9071609747503105921, guid: f3faadde2b12e944faa102bcbc424ba3, type: 3}
     m_RemovedGameObjects: []

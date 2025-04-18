@@ -14,7 +14,6 @@ public class BowNotcher : MonoBehaviour
 
     private void Awake()
     {
-        // Listen for the moment the arrow is released
         PullInteraction.PullActionReleased += OnArrowFired;
     }
 
@@ -26,25 +25,22 @@ public class BowNotcher : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (_currentBowArrow != null) return;
-
-        // only react to QuiverArrow tags
-        if (!other.CompareTag("QuiverArrow"))
-            return;
+        if (!other.CompareTag("QuiverArrow")) return;
 
         Debug.Log("[BowNotcher] QuiverArrow detected in notch.");
 
-        // 1) Destroy the quiver arrow you just slid in
+        // destroy the quiver arrow
         Destroy(other.gameObject);
 
-        // 2) Spawn the BowArrow and parent it to the notch
+        // 1) Instantiate at world‐space notch position/rotation
         _currentBowArrow = Instantiate(
             bowArrowPrefab,
             notchPoint.position,
-            notchPoint.rotation,
-            notchPoint
+            notchPoint.rotation
         );
-        _currentBowArrow.transform.localPosition = Vector3.zero;
-        _currentBowArrow.transform.localRotation = Quaternion.identity;
+
+        // 2) Parent it under the notch but KEEP its world transform (incl. scale)
+        _currentBowArrow.transform.SetParent(notchPoint, true);
 
         Debug.Log("[BowNotcher] BowArrow instantiated and notched.");
     }
@@ -52,7 +48,6 @@ public class BowNotcher : MonoBehaviour
     private void OnArrowFired(float pullAmount)
     {
         if (_currentBowArrow == null) return;
-
         Debug.Log("[BowNotcher] Arrow fired! Clearing notch.");
         _currentBowArrow = null;
     }
