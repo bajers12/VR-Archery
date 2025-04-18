@@ -1,22 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    [Header("Launch Settings")]
     public float speed = 10f;
+
+    [Header("Gravity Settings")]
+    [Tooltip("1 = normal gravity, <1 = floatier, >1 = heavier")]
+    public float gravityScale = 0.5f;
+
+    [Header("References")]
     public Transform tip;
 
     private Rigidbody _rb;
     private bool _inAir = false;
-    private Vector3 _lastPosition = Vector3.zero;
+    private Vector3 _lastPosition;
+
+    // Exclude layers 8 & 9 from collision
+    private int collisionMask = ~((1 << 8) | (1 << 9));
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        PullInteraction.PullActionReleased += Release;
+        // Start parked with no physics
+        _rb.isKinematic = true;
+        _rb.useGravity = false;
 
-        Stop();
+        PullInteraction.PullActionReleased += Release;
     }
 
     private void OnDestroy()
@@ -24,66 +35,69 @@ public class Arrow : MonoBehaviour
         PullInteraction.PullActionReleased -= Release;
     }
 
-    private void Release(float value){
+    private void Release(float pullValue)
+    {
         PullInteraction.PullActionReleased -= Release;
-        gameObject.transform.parent = null;
+        transform.parent = null;
         _inAir = true;
-        SetPhysics(true);
 
-        Vector3 force = transform.forward * speed * value;
+        // Enable physics but disable built-in gravity
+        _rb.isKinematic = false;
+        _rb.useGravity  = false;
+
+        // Apply initial impulse
+        Vector3 force = transform.forward * speed * pullValue;
         _rb.AddForce(force, ForceMode.Impulse);
 
+        // Start flight/rotation
         StartCoroutine(RotateWithVelocity());
-
         _lastPosition = tip.position;
-
     }
 
-    IEnumerator RotateWithVelocity()
+    private IEnumerator RotateWithVelocity()
     {
+        // Wait one physics frame
         yield return new WaitForFixedUpdate();
-        while (_inAir){
-            Quaternion newRotation = Quaternion.LookRotation(_rb.velocity, transform.up);
-            transform.rotation = newRotation;
-            yield return null;
-        }
-    }
 
-    void FixedUpdate()
-    {
-        if (_inAir){
-            CheckCollision();
-            _lastPosition = tip.position;
-        }
-    }
-
-
-// This mask excludes layers 8 and 9.
-    private int collisionMask = ~( (1 << 8) | (1 << 9) );
-
-    private void CheckCollision()
-    {
-        if (Physics.Linecast(_lastPosition, tip.position, out RaycastHit hitInfo, collisionMask))
+        while (_inAir)
         {
-            // Proceed only if the hit object is NOT on layer 8 or 9.
-            if (hitInfo.transform.gameObject.TryGetComponent(out Rigidbody body))
+            // Apply custom gravity (downwards acceleration)
+            _rb.AddForce(Physics.gravity * gravityScale,
+                         ForceMode.Acceleration);
+
+            // Rotate arrow to match velocity direction
+            transform.rotation = Quaternion.LookRotation(_rb.velocity,
+                                                        transform.up);
+
+            // Collision check
+            if (Physics.Linecast(_lastPosition, tip.position,
+                                 out RaycastHit hit, collisionMask))
             {
-                _rb.interpolation = RigidbodyInterpolation.None;
-                transform.parent = hitInfo.transform;
-                body.AddForce(_rb.velocity, ForceMode.Impulse);
+                if (hit.transform.TryGetComponent<Rigidbody>(out Rigidbody body))
+                {
+                    // Stick the arrow and transfer impulse
+                    _rb.interpolation = RigidbodyInterpolation.None;
+                    transform.parent = hit.transform;
+                    body.AddForce(_rb.velocity, ForceMode.Impulse);
+                }
+                StopArrow();
+                yield break;
             }
-            Stop();
+
+            _lastPosition = tip.position;
+            yield return new WaitForFixedUpdate();
         }
     }
 
-    private void Stop(){
-        _inAir = false;
-        SetPhysics(false);
+    private void FixedUpdate()
+    {
+        // (Optional: if you need other physics logic outside the coroutine)
     }
 
-    private void SetPhysics(bool usePhysics){
-        _rb.isKinematic = !usePhysics;
-        _rb.useGravity = usePhysics;
+    private void StopArrow()
+    {
+        _inAir = false;
+        _rb.isKinematic = true;
+        _rb.useGravity  = false;
     }
-    
 }
