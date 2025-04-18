@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 3279369593789226484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 9197445897143470594, guid: 3e5280d8772fa4a479db4b8a0d22eaa1, type: 3}
-  notch: {fileID: 0}
+  notch: {fileID: 8379401747686745631}
 --- !u!1 &8379401747686745631
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,6 +864,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8032588223497525683}
+  - component: {fileID: 412106838407847268}
+  - component: {fileID: 6457868562136366052}
   m_Layer: 9
   m_Name: Notch
   m_TagString: Untagged
@@ -880,12 +882,47 @@ Transform:
   m_GameObject: {fileID: 8379401747686745631}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.208}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6382823890742894736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &412106838407847268
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379401747686745631}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.3}
+--- !u!114 &6457868562136366052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379401747686745631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586795d86f8175f4da7cf5014ab124d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bowArrowPrefab: {fileID: 9197445897143470594, guid: 3e5280d8772fa4a479db4b8a0d22eaa1, type: 3}
+  notchPoint: {fileID: 8032588223497525683}
 --- !u!1 &8642980830719583164
 GameObject:
   m_ObjectHideFlags: 0
