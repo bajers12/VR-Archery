@@ -80,6 +80,10 @@ public class Arrow : MonoBehaviour
                     transform.parent = hit.transform;
                     body.AddForce(_rb.velocity, ForceMode.Impulse);
                 }
+                if (hit.transform.TryGetComponent<Target>(out Target target))
+                {
+                    GameManager.Instance.AddScore(target.scoreValue);
+                }
                 StopArrow();
                 yield break;
             }

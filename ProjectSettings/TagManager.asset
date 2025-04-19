@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Teleport
   - QuiverArrow
+  - Score:0
   layers:
   - Default
   - TransparentFX

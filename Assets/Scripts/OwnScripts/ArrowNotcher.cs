@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class BowNotcher : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class BowNotcher : MonoBehaviour
     [Tooltip("Transform where the BowArrow should sit when notched")]
     public Transform notchPoint;
 
-    GameObject _currentBowArrow;
+    private GameObject _currentBowArrow;
 
     private void Awake()
     {
@@ -24,22 +25,28 @@ public class BowNotcher : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Only notch if we have no arrow currently and the collider is a quiver arrow
         if (_currentBowArrow != null) return;
         if (!other.CompareTag("QuiverArrow")) return;
 
-        Debug.Log("[BowNotcher] QuiverArrow detected in notch.");
+        // Ensure this arrow is currently grabbed by the user
+        var grabInteractable = other.GetComponent<XRGrabInteractable>();
+        if (grabInteractable == null || !grabInteractable.isSelected)
+            return;
 
-        // destroy the quiver arrow
+        Debug.Log("[BowNotcher] Grabbed QuiverArrow detected in notch.");
+
+        // Destroy the quiver arrow after confirming it's grabbed
         Destroy(other.gameObject);
 
-        // 1) Instantiate at world‐space notch position/rotation
+        // Instantiate the bow arrow at the notch point
         _currentBowArrow = Instantiate(
             bowArrowPrefab,
             notchPoint.position,
             notchPoint.rotation
         );
 
-        // 2) Parent it under the notch but KEEP its world transform (incl. scale)
+        // Parent it under the notch but keep its world transform
         _currentBowArrow.transform.SetParent(notchPoint, true);
 
         Debug.Log("[BowNotcher] BowArrow instantiated and notched.");

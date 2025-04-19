@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(Collider))]
 public class ArrowPickupSpawner : MonoBehaviour
 {
     [Header("Arrow Prefab")]
@@ -17,39 +18,51 @@ public class ArrowPickupSpawner : MonoBehaviour
 
     void Start()
     {
+        // ensure our collider is a trigger
+        var col = GetComponent<Collider>();
+        col.isTrigger = true;
         SpawnArrow();
     }
 
-        // 1) Instantiate the arrow as a child of this box‑spawner
     void SpawnArrow()
     {
-        // 1) Instantiate without a parent, so it comes in at the correct world‐scale:
         currentArrow = Instantiate(
             arrowPrefab,
             spawnPoint.position,
             spawnPoint.rotation
         );
-
-        // 2) Now parent it—but tell Unity to keep its world‐space position, rotation AND scale:
+        // keep world‐scale/pos/rot when parented
         currentArrow.transform.SetParent(transform, true);
 
-        // 3) Hook into its grab event
         var grab = currentArrow.GetComponent<XRGrabInteractable>();
         grab.selectEntered.AddListener(OnArrowGrabbed);
-    }   
-
+    }
 
     void OnArrowGrabbed(SelectEnterEventArgs args)
     {
-        // 1) Unsubscribe so this arrow only spawns once
-        var grab = args.interactableObject as XRGrabInteractable;
+        CleanupAndQueue();
+    }
+
+    // ← new!
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == currentArrow)
+        {
+            CleanupAndQueue();
+        }
+    }
+
+    void CleanupAndQueue()
+    {
+        // remove listener so we only process one removal
+        var grab = currentArrow.GetComponent<XRGrabInteractable>();
         grab.selectEntered.RemoveListener(OnArrowGrabbed);
 
-        // 2) Unparent it so it flies free
+        // unparent so it can fly/destroy freely
         currentArrow.transform.parent = null;
         currentArrow = null;
 
-        // 3) Queue the next spawn
+        // schedule the next arrow
         StartCoroutine(DelayedSpawn());
     }
 
