@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6204458917155090442}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 246305810942352358}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 513720421543851799}
   - component: {fileID: 8373874673232250405}
   - component: {fileID: 6748110476508346238}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 3507838523316809257}
   - component: {fileID: 2177314559365379481}
   - component: {fileID: -3511749403890441141}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: QuiverArrow
   m_TagString: QuiverArrow
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 6
+    m_Bits: 4
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
