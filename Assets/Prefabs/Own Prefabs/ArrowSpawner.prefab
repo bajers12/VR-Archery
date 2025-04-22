@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c152ccf1d1d97a2488c69ee0779d211b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 8290914024810054237, guid: 756b90e4734cb494db9db5e20e7c448f, type: 3}
+  arrowPrefab: {fileID: 3782663360554120680, guid: 56f11526b0dceac4bb3c5055b983c599, type: 3}
   spawnPoint: {fileID: 610274669619860966}
   spawnDelay: 0.2
 --- !u!1 &8502463460736745602

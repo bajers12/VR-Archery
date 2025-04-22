@@ -40,10 +40,10 @@ public class ArrowPickupSpawner : MonoBehaviour
 
     void OnArrowGrabbed(SelectEnterEventArgs args)
     {
+        SendHapticFeedback(args.interactorObject);
         CleanupAndQueue();
     }
 
-    // ← new!
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject == currentArrow)
@@ -71,4 +71,17 @@ public class ArrowPickupSpawner : MonoBehaviour
         yield return new WaitForSeconds(spawnDelay);
         SpawnArrow();
     }
+
+    void SendHapticFeedback(IXRInteractor interactor)
+{
+    if (interactor is XRBaseControllerInteractor controllerInteractor)
+    {
+        var controller = controllerInteractor.xrController;
+        if (controller != null)
+        {
+            controller.SendHapticImpulse(0.5f, 0.1f);
+        }
+    }
+}
+
 }
