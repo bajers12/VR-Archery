@@ -34,6 +34,7 @@ public class PullInteraction : XRBaseInteractable
         // only invoke the release event if we've passed the threshold
         if (pullAmount >= minPullThreshold)
         {
+            SendHapticFeedback(pullingInteractor);
             PullActionReleased?.Invoke(pullAmount);
         }
         else
@@ -81,5 +82,16 @@ public class PullInteraction : XRBaseInteractable
             z + 0.2f
         );
         _lineRenderer.SetPosition(1, Vector3.forward * z);
+    }
+    void SendHapticFeedback(IXRInteractor interactor)
+    {
+        if (interactor is XRBaseControllerInteractor controllerInteractor)
+        {
+            var controller = controllerInteractor.xrController;
+            if (controller != null)
+            {
+                controller.SendHapticImpulse(0.5f, 0.1f);
+            }
+        }
     }
 }

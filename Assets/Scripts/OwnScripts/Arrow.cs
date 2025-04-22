@@ -5,7 +5,7 @@ public class Arrow : MonoBehaviour
 {
     [Header("Launch Settings")]
     public float speed = 10f;
-
+    public Transform nockPoint;
     [Header("Gravity Settings")]
     [Tooltip("1 = normal gravity, <1 = floatier, >1 = heavier")]
     public float gravityScale = 0.5f;

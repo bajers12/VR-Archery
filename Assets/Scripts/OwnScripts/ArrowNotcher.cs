@@ -12,6 +12,7 @@ public class BowNotcher : MonoBehaviour
     public Transform notchPoint;
 
     private GameObject _currentBowArrow;
+    public Vector3 nockOffset;
 
     private void Awake()
     {
@@ -39,17 +40,17 @@ public class BowNotcher : MonoBehaviour
         // Destroy the quiver arrow after confirming it's grabbed
         Destroy(other.gameObject);
 
-        // Instantiate the bow arrow at the notch point
-        _currentBowArrow = Instantiate(
-            bowArrowPrefab,
-            notchPoint.position,
-            notchPoint.rotation
-        );
 
-        // Parent it under the notch but keep its world transform
-        _currentBowArrow.transform.SetParent(notchPoint, true);
+        _currentBowArrow = Instantiate(bowArrowPrefab, notchPoint, worldPositionStays: false);
 
-        Debug.Log("[BowNotcher] BowArrow instantiated and notched.");
+        _currentBowArrow.transform.localRotation = Quaternion.identity;
+
+
+        var arrowScript = _currentBowArrow.GetComponent<Arrow>();
+        Vector3 nockLocal = arrowScript.nockPoint.localPosition;
+
+        _currentBowArrow.transform.localPosition = -nockLocal;
+
     }
 
     private void OnArrowFired(float pullAmount)

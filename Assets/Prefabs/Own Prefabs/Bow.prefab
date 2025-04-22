@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586795d86f8175f4da7cf5014ab124d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bowArrowPrefab: {fileID: 4520961028527134742, guid: d859f27878c7f9e4d82db40006b7c82c, type: 3}
+  bowArrowPrefab: {fileID: 7653974004863683395, guid: de582c06d7996c54b8ef9bd992190036, type: 3}
   notchPoint: {fileID: 8032588223497525683}
 --- !u!1 &8642980830719583164
 GameObject:
