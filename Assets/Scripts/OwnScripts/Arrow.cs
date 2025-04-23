@@ -10,6 +10,10 @@ public class Arrow : MonoBehaviour
     [Tooltip("1 = normal gravity, <1 = floatier, >1 = heavier")]
     public float gravityScale = 0.5f;
 
+
+    [Header("Sound")]
+    public AudioSource hitSource;
+
     [Header("References")]
     public Transform tip;
 
@@ -83,7 +87,10 @@ public class Arrow : MonoBehaviour
                 if (hit.transform.TryGetComponent<Target>(out Target target))
                 {   
                     GameManager.Instance.AddScore(target.scoreValue);
+
+                    hitSource.PlayOneShot(hitSource.clip);
                     target.hit();
+
                 }
                 StopArrow();
                 yield break;

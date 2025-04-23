@@ -10,6 +10,10 @@ public class PullInteraction : XRBaseInteractable
     [Range(0f, 1f)]
     public float minPullThreshold = 0.35f;
 
+
+    [Header("Sound")]
+    public AudioSource crackleSource;
+    public AudioSource releaseSource;
     public Transform start, end;
     public GameObject notch;
 
@@ -27,6 +31,8 @@ public class PullInteraction : XRBaseInteractable
     public void SetPullInteractor(SelectEnterEventArgs args)
     {
         pullingInteractor = args.interactorObject;
+        if (crackleSource && !crackleSource.isPlaying)
+            crackleSource.Play();
     }
 
     public void Release()
@@ -36,11 +42,14 @@ public class PullInteraction : XRBaseInteractable
         {
             SendHapticFeedback(pullingInteractor);
             PullActionReleased?.Invoke(pullAmount);
+            if (releaseSource){
+                releaseSource.volume = pullAmount;
+                releaseSource.pitch = Mathf.Lerp(0.9f, 1.3f, pullAmount);
+                releaseSource.PlayOneShot(releaseSource.clip);
+                }
         }
-        else
-        {
-            // optional: play a "click" sound or haptic to show pull was too short
-        }
+        if (crackleSource && crackleSource.isPlaying)
+            crackleSource.Stop();
 
         // reset everything whether or not we shot
         pullingInteractor = null;
@@ -62,6 +71,10 @@ public class PullInteraction : XRBaseInteractable
             Vector3 pullPosition = pullingInteractor.transform.position;
             pullAmount = CalculatePull(pullPosition);
             UpdateString();
+
+            if (crackleSource){
+                crackleSource.volume = pullAmount; // or curve it: Mathf.SmoothStep(0f, 1f, pullAmount)
+                }
         }
     }
 
