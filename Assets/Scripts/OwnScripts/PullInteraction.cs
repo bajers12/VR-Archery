@@ -18,6 +18,8 @@ public class PullInteraction : XRBaseInteractable
     public GameObject notch;
 
     public float pullAmount { get; private set; } = 0f;
+    private bool isNocked = false;
+
 
     private LineRenderer _lineRenderer;
     private IXRSelectInteractor pullingInteractor = null;
@@ -31,7 +33,7 @@ public class PullInteraction : XRBaseInteractable
     public void SetPullInteractor(SelectEnterEventArgs args)
     {
         pullingInteractor = args.interactorObject;
-        if (crackleSource && !crackleSource.isPlaying)
+        if (crackleSource && !crackleSource.isPlaying && isNocked)
             crackleSource.Play();
     }
 
@@ -42,11 +44,14 @@ public class PullInteraction : XRBaseInteractable
         {
             SendHapticFeedback(pullingInteractor);
             PullActionReleased?.Invoke(pullAmount);
-            if (releaseSource){
+            if (releaseSource && isNocked){
                 releaseSource.volume = pullAmount;
                 releaseSource.pitch = Mathf.Lerp(0.9f, 1.3f, pullAmount);
+
                 releaseSource.PlayOneShot(releaseSource.clip);
                 }
+            SetNocked(false);
+                
         }
         if (crackleSource && crackleSource.isPlaying)
             crackleSource.Stop();
@@ -72,7 +77,7 @@ public class PullInteraction : XRBaseInteractable
             pullAmount = CalculatePull(pullPosition);
             UpdateString();
 
-            if (crackleSource){
+            if (crackleSource && isNocked){
                 crackleSource.volume = pullAmount; // or curve it: Mathf.SmoothStep(0f, 1f, pullAmount)
                 }
         }
@@ -107,4 +112,9 @@ public class PullInteraction : XRBaseInteractable
             }
         }
     }
+    public void SetNocked(bool nocked)
+    {
+        isNocked = nocked;
+    }
+
 }

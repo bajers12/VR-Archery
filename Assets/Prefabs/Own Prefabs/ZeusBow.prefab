@@ -5807,6 +5807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bowArrowPrefab: {fileID: 7653974004863683395, guid: de582c06d7996c54b8ef9bd992190036, type: 3}
   notchPoint: {fileID: 5993025990476416622}
+  pullInteraction: {fileID: 8960696186566315716}
   nockOffset: {x: 0, y: 0, z: 0.15}
 --- !u!1 &8702342461231548650
 GameObject:

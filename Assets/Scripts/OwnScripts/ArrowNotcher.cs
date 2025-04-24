@@ -10,7 +10,7 @@ public class BowNotcher : MonoBehaviour
     [Header("Notch Point")]
     [Tooltip("Transform where the BowArrow should sit when notched")]
     public Transform notchPoint;
-
+    [SerializeField] private PullInteraction pullInteraction;
     private GameObject _currentBowArrow;
     public Vector3 nockOffset;
 
@@ -34,14 +34,18 @@ public class BowNotcher : MonoBehaviour
         var grabInteractable = other.GetComponent<XRGrabInteractable>();
         if (grabInteractable == null || !grabInteractable.isSelected)
             return;
-
+        
         Debug.Log("[BowNotcher] Grabbed QuiverArrow detected in notch.");
 
         // Destroy the quiver arrow after confirming it's grabbed
         Destroy(other.gameObject);
 
 
-        _currentBowArrow = Instantiate(bowArrowPrefab, notchPoint, worldPositionStays: false);
+        _currentBowArrow = Instantiate(
+        bowArrowPrefab,
+        notchPoint,          // the parent transform
+        worldPositionStays: false
+        );
 
         _currentBowArrow.transform.localRotation = Quaternion.identity;
 
@@ -50,6 +54,7 @@ public class BowNotcher : MonoBehaviour
         Vector3 nockLocal = arrowScript.nockPoint.localPosition;
 
         _currentBowArrow.transform.localPosition = -nockLocal;
+        pullInteraction.SetNocked(true);
 
     }
 
