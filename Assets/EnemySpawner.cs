@@ -51,10 +51,15 @@ public class EnemySpawner : MonoBehaviour
     {
         for(int i = 0; i < wayPoints.Length; i++)
         {
-            if (i == 0) Gizmos.DrawLine(transform.position, wayPoints[0].position);
+            if (i == 0) {
+                Gizmos.DrawLine(transform.position, wayPoints[0].position);
+            } else
+            {
+                Gizmos.DrawLine(wayPoints[i].position, wayPoints[i - 1].position);
+            }
             if (i == wayPoints.Length - 1) Gizmos.DrawLine(wayPoints[i].position, enemyTarget.transform.position);
-            Gizmos.DrawLine(wayPoints[i].position, wayPoints[i].position);
             Gizmos.DrawSphere(wayPoints[i].position, 0.5f);
+
         }
     }
 }
