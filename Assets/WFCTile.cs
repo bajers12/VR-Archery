@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WFCTile
 {
-    Orientation orientation { get; }
+    public Orientation orientation { get; }
     WFCTileData data { get; }
 
     public WFCTile(WFCTileData data, Orientation rotation)
@@ -15,13 +15,18 @@ public class WFCTile
 
 
 
-    public List<WFCTile> GetConnectedTiles(Direction direction)
+    public List<WFCTile> GetPossibleNeighbours(Direction direction)
     {
-        return data.GetConnectedTiles(orientation, direction);
+        return data.GetPossibleNeighbours(orientation, direction);
     }
 
     public override string ToString()
     {
         return data.name + orientation;
+    }
+
+    public GameObject getPrefab()
+    {
+        return data.tilePrefab;
     }
 }

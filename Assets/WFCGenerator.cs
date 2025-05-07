@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 
 internal class WFCGenerator
 {
-    static Vector3Int[] NESWUD = { Vector3Int.forward, Vector3Int.right, Vector3Int.back, Vector3Int.left, Vector3Int.up, Vector3Int.down };
+
+    public static Vector3Int invalidV3 = new Vector3Int(-1, -1);
+    public static Vector3Int[] NESWUD = { Vector3Int.forward, Vector3Int.right, Vector3Int.back, Vector3Int.left, Vector3Int.up, Vector3Int.down };
     List<WFCTile> tileSet;
     List<WFCTile>[,,] waveGrid;
 
@@ -15,18 +17,22 @@ internal class WFCGenerator
     public WFCGenerator(TileSet tileSet)
     {
         this.tileSet = tileSet.allRotatedPermutations();
+        Debug.Log(this + " has " + this.tileSet.Count + " tile permutations");
     }
 
     public List<WFCTile>[,,] Generate(Vector3Int dimensions)
     {
         waveGrid = new List<WFCTile>[dimensions.x, dimensions.y, dimensions.z];
         FillWaveGrid(waveGrid);
+
+        int populated_tilecount = 0;
         while(WFC())
         {
+            populated_tilecount++;
             continue;
         }
 
-
+        Debug.Log("Tiles generated " + populated_tilecount);
         return waveGrid;
     }
     void FillWaveGrid(List<WFCTile>[,,] waveGrid)
@@ -49,8 +55,9 @@ internal class WFCGenerator
             Vector3Int observedCell = Observe();
             Propagate(observedCell);
             return true;
-        } catch
+        } catch (Exception e)
         {
+            Debug.LogError(e);
             return false;
         }
     }
@@ -62,7 +69,9 @@ internal class WFCGenerator
     {
         Vector3Int chosenCell = FindRandomBestCandidate();
         WFCTile chosenTile = PickTile(chosenCell);
+        Debug.Log("Observed " + chosenCell + " with entropy of " + Entropy(chosenCell));
         CollapseCell(chosenCell, chosenTile);
+        Debug.Log("Collapsed " + chosenCell + " to " + chosenTile + ", now has " + Entropy(chosenCell) + " entropy");
         return chosenCell;
     }
 
@@ -101,7 +110,6 @@ internal class WFCGenerator
                 }
             }
         }
-        //TODO return random cell 
         return candidates[Random.Range(0, candidates.Count)];
     }
 
@@ -124,18 +132,24 @@ internal class WFCGenerator
     WFCTile PickTile(Vector3Int cell)
     {
         List<WFCTile> tileSuperpositions = waveGrid[cell.x, cell.y, cell.z];
+        if(tileSuperpositions.Count == 0)
+        {
+            Debug.Log("No options at cell " + cell);
+        }
         return tileSuperpositions[Random.Range(0, tileSuperpositions.Count)];
     }
 
-    void Propagate(Vector3Int cell)
+    void Propagate(Vector3Int collapsedCell)
     {
-        Vector3Int[] neighbours = CellNeighbours(cell);
+        Vector3Int[] neighbours = CellNeighbours(collapsedCell);
         Vector3Int neighbour;
-        foreach(Direction dir in Enum.GetValues(typeof(Direction)))
+        Debug.Log("Propagating after collapsing cell " + collapsedCell);
+
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
             neighbour = neighbours[(int)dir];
-            if (neighbour != null) {
-                removeUnviableTiles(neighbour, cell, dir);
+            if (neighbour != invalidV3) {
+                removeUnviableTiles(neighbour, collapsedCell, dir); 
             }
         }
     }
@@ -150,6 +164,9 @@ internal class WFCGenerator
             if(InGrid(neighbour))
             {
                 neighbours[i] = neighbour;
+            } else
+            {
+                neighbours[i] = invalidV3;
             }
         }
         return neighbours;
@@ -157,16 +174,21 @@ internal class WFCGenerator
 
     bool InGrid(Vector3Int cell)
     {
-        return (cell.x < waveGrid.GetLength(0) && cell.x >= 0  ) && (cell.y < waveGrid.GetLength(1) && cell.y >= 0) && (cell.z < waveGrid.GetLength(2) && cell.z >= 0);
+        bool inGrid = (cell.x < waveGrid.GetLength(0) && cell.x >= 0) && (cell.y < waveGrid.GetLength(1) && cell.y >= 0) && (cell.z < waveGrid.GetLength(2) && cell.z >= 0);
+        return inGrid;
     }
 
-    //TODO remove all tiles from neighbours which do not fit this
     void removeUnviableTiles(Vector3Int neighbour, Vector3Int collapsedCell, Direction connectionDirection)
     {
+        Debug.Log("Removing unviable tiles from " + neighbour + " in direction " + connectionDirection);
         List<WFCTile> previousPossibleTiles = waveGrid[neighbour.x, neighbour.y, neighbour.z];
+        Debug.Log("Previous possible tiles " + previousPossibleTiles.Count);
         WFCTile collapsedTile = waveGrid[collapsedCell.x, collapsedCell.y, collapsedCell.z][0];
-        List<WFCTile> collapsedTileConnections = collapsedTile.GetConnectedTiles(connectionDirection);
-        List<WFCTile> possibleTiles = previousPossibleTiles.Where(tile => collapsedTileConnections.Contains(tile)).ToList(); 
+        List<WFCTile> collapsedTileConnections = collapsedTile.GetPossibleNeighbours(connectionDirection);
+        List<WFCTile> possibleTiles = previousPossibleTiles.Where(tile => collapsedTileConnections.Contains(tile)).ToList();
+        Debug.Log("Now possible tiles " + possibleTiles.Count);
+
+        waveGrid[neighbour.x, neighbour.y, neighbour.z] = possibleTiles;
     }
 
 }

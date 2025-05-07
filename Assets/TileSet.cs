@@ -12,7 +12,7 @@ internal class TileSet : ScriptableObject
         List<WFCTile> rotatedPermutations = new List<WFCTile>();
         foreach(WFCTileData tileData in tiles)
         {
-            foreach(WFCTile rotatedTile in tileData.rotatedPermutations)
+            foreach(WFCTile rotatedTile in tileData.getAllRotatedPermutations())
             {
                 rotatedPermutations.Add(rotatedTile);
             }

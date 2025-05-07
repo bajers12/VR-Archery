@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSet: {fileID: 11400000, guid: f3e073ba604a0ab449f21d4402492d49, type: 2}
-  dimensions: {x: 5, y: 5, z: 5}
+  gridDimensions: {x: 5, y: 5, z: 5}
+  tileScale: 1
 --- !u!4 &171895608
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unity.XR.CoreUtils.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -26,7 +27,7 @@ public enum Direction
 public struct Connection
 {
     public WFCTileData tileSO;
-    public Orientation orientation;
+    public List<Orientation> orientations;
 }
 
 [CreateAssetMenu(fileName = "newWFCTIleData", menuName = "WFCTile")]
@@ -34,10 +35,7 @@ public class WFCTileData : ScriptableObject
 {
 
     [SerializeField]
-    public float baseProbabílity { get; } = 1f ;
-    [SerializeField]
-    GameObject tilePrefab;
-
+    public GameObject tilePrefab;
 
     [SerializeField]
     List<Connection> northConnections;
@@ -52,66 +50,53 @@ public class WFCTileData : ScriptableObject
     [SerializeField]
     List<Connection> downConnections;
 
-
-
-    WFCTile northRotation;
-    WFCTile eastRotation;
-    WFCTile southRotation;
-    WFCTile westRotation;
-
-    List<Connection>[] allConnections;
-    public WFCTile[] rotatedPermutations { get; private set; }
+    Dictionary<Direction, List<Connection>> allConnections;
+    Dictionary<Orientation, WFCTile> rotatedPermutations;
 
     void OnEnable()
     {
-        Debug.Log(this + " has awoken");
-        CreateRotatedPermutations();
-        rotatedPermutations = new WFCTile[] { northRotation, eastRotation, southRotation, westRotation };
-        allConnections = new List<Connection>[] { northConnections, eastConnections, southConnections, westConnections, upConnections, downConnections };
+        WFCTile northRotation = new WFCTile(this, Orientation.NORTH);
+        WFCTile eastRotation = new WFCTile(this, Orientation.EAST);
+        WFCTile southRotation = new WFCTile(this, Orientation.SOUTH);
+        WFCTile westRotation = new WFCTile(this, Orientation.WEST);
+
+        rotatedPermutations = new Dictionary<Orientation, WFCTile> { {Orientation.NORTH, northRotation }, { Orientation.EAST, eastRotation }, {Orientation.SOUTH, southRotation}, {Orientation.WEST, westRotation} };
+        
+        allConnections = new Dictionary<Direction, List<Connection>>{   {Direction.NORTH, northConnections}, { Direction.EAST, eastConnections }, { Direction.SOUTH, southConnections }, 
+                                                                        { Direction.WEST, westConnections }, { Direction.UP, upConnections }, { Direction.DOWN, downConnections } };
     }
 
-    void CreateRotatedPermutations()
+    public List<WFCTile> getAllRotatedPermutations()
     {
-        northRotation = NorthRotation();
-        eastRotation = EastRotation();
-        southRotation = SouthRotation();
-        westRotation = WestRotation();
+        return rotatedPermutations.Values.ToList();
     }
 
-    public List<Connection>[] Connections()
+    public List<WFCTile> GetPossibleNeighbours(Orientation tileOrientation, Direction connectionDirection)
     {
-        return new List<Connection>[] { northConnections, eastConnections, southConnections, westConnections, upConnections, downConnections };
-    }
-
-    public List<WFCTile> GetConnectedTiles(Orientation tileOrientation, Direction connectionDirection)
-    {
-        //Sideways connections directions are offset by tile orientation
-        if((int)connectionDirection <= 3)
+        List<WFCTile> connectedTiles = new List<WFCTile>();
+        if ((int)connectionDirection <= 3) 
         {
-            int connectedTileIndex = ((int)tileOrientation + (int)connectionDirection)%4;
-            return allConnections[connectedTileIndex].Select(con => con.tileSO.rotatedPermutations[connectedTileIndex]).ToList();
-        } else//Up and down connections always use same connection, but different orientations of it deppending on tile orientation
-        {
-            return allConnections[(int)connectionDirection].Select(con => con.tileSO.rotatedPermutations[(int)tileOrientation]).ToList();
+            Direction correctedConnectionDirection = (Direction) (((int)connectionDirection - (int)tileOrientation + 4) % 4);
+
+            foreach (Connection connection in allConnections[correctedConnectionDirection])
+            {
+                foreach (Orientation orientation in connection.orientations)
+                {
+                    connectedTiles.Add(connection.tileSO.rotatedPermutations[(Orientation) (((int)orientation + (int)tileOrientation)%4)]);
+                }
+            }
         }
+        else
+        {
+            foreach (Connection connection in allConnections[connectionDirection])
+            {
+                foreach (Orientation orientation in connection.orientations)
+                {
+                    connectedTiles.Add(connection.tileSO.rotatedPermutations[(Orientation)(((int)orientation + (int)tileOrientation) % 4)]);
+                }
+            }
+        }
+        return connectedTiles;
     }
-
-    WFCTile NorthRotation()
-    {
-        return new WFCTile(this, Orientation.NORTH);
-    }
-    WFCTile EastRotation()
-    {
-        return new WFCTile(this, Orientation.EAST);
-    }
-    WFCTile SouthRotation()
-    {
-        return new WFCTile(this, Orientation.SOUTH);
-    }
-    WFCTile WestRotation()
-    {
-        return new WFCTile(this, Orientation.WEST);
-    }
-
 
 }
