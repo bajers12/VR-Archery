@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 3e5399bd195de7649b874f58c1b9f8a3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18374121, g: 0.22913602, b: 0.30463368, a: 1}
+  m_IndirectSpecularColor: {r: 0.3557411, g: 0.4510064, b: 0.57349235, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c35a10c03958a345adab1eb9626d004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4443483115338182698, guid: f3bde29a43715f94181ec2e0e5155ad2, type: 3}
+  EnemyPrefab: {fileID: 4661257252269397747, guid: aa0b7decc7c29ef4681b5f4c73641175, type: 3}
   wayPoints:
   - {fileID: 107977692}
   spawnPoint: {fileID: 2110239005}
@@ -1467,7 +1467,7 @@ GameObject:
   - component: {fileID: 933855426}
   - component: {fileID: 933855429}
   - component: {fileID: 933855428}
-  - component: {fileID: 933855427}
+  - component: {fileID: 933855430}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -1490,29 +1490,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1945964549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &933855427
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933855425}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &933855428
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1563,6 +1540,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933855425}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &933855430
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933855425}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &975806279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,7 +1610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c35a10c03958a345adab1eb9626d004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4443483115338182698, guid: f3bde29a43715f94181ec2e0e5155ad2, type: 3}
+  EnemyPrefab: {fileID: 4661257252269397747, guid: aa0b7decc7c29ef4681b5f4c73641175, type: 3}
   wayPoints:
   - {fileID: 2071292915}
   spawnPoint: {fileID: 356001366}
@@ -2682,7 +2681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c35a10c03958a345adab1eb9626d004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4443483115338182698, guid: f3bde29a43715f94181ec2e0e5155ad2, type: 3}
+  EnemyPrefab: {fileID: 4661257252269397747, guid: aa0b7decc7c29ef4681b5f4c73641175, type: 3}
   wayPoints:
   - {fileID: 1729445793}
   - {fileID: 346170614}
@@ -3598,7 +3597,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7d6f306bb86518045ac3f9ecad274b9c, type: 2}
+  - {fileID: 2100000, guid: 990f3135770b9054e82bc972001ad37b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4175,7 +4174,7 @@ Transform:
   m_GameObject: {fileID: 2132563029}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5790128, y: -0.62, z: -4.381257}
+  m_LocalPosition: {x: 1.5790128, y: -0.46, z: -4.381257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4278,22 +4277,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7079434101306822143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &453440201170904916
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5036705835078142311}
-  m_Layer: 0
-  m_Name: Pikachus
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1001 &512975307625397480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5402,21 +5385,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &5036705835078142311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453440201170904916}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7038445, z: -0, w: 0.71035415}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -89.473, z: 0}
 --- !u!120 &5106432877106043768
 LineRenderer:
   serializedVersion: 2
@@ -10729,7 +10697,7 @@ Transform:
   m_GameObject: {fileID: 3692880312075108688}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.02527684, w: 0.9996805}
-  m_LocalPosition: {x: -0.358, y: 1.143, z: 0.916}
+  m_LocalPosition: {x: -0.37, y: 0.97, z: 1.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11114,5 +11082,4 @@ SceneRoots:
   - {fileID: 273082463}
   - {fileID: 7382011517180400505}
   - {fileID: 7096940120221246093}
-  - {fileID: 5036705835078142311}
   - {fileID: 368039208}
