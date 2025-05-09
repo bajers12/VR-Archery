@@ -145,13 +145,24 @@ internal class WFCGenerator
     {
         Vector3Int[] neighbours = CellNeighbours(collapsedCell);
         Vector3Int neighbour;
-        Debug.Log("Propagating after collapsing cell " + collapsedCell);
+        Debug.Log("Propagating from cell " + collapsedCell);
 
         foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
             neighbour = neighbours[(int)dir];
-            if (neighbour != invalidV3) {
-                removeUnviableTiles(neighbour, collapsedCell, dir); 
+            if (neighbour == invalidV3)
+            {
+                continue;
+            }
+            if(IsCollapsed(neighbour)) {
+                continue;
+            }
+            int removedOptions = removeUnviableTiles(neighbour, collapsedCell, dir);
+            Debug.Log("Removed options: " + removedOptions);
+            if(removedOptions > 0)
+            {
+                Debug.Log(neighbour);
+                Propagate(neighbour);
             }
         }
     }
@@ -180,17 +191,19 @@ internal class WFCGenerator
         return inGrid;
     }
 
-    void removeUnviableTiles(Vector3Int neighbour, Vector3Int collapsedCell, Direction connectionDirection)
+    int removeUnviableTiles(Vector3Int neighbour, Vector3Int collapsedCellIndex, Direction connectionDirection)
     {
         List<WFCTile> possibleTiles = waveGrid[neighbour.x, neighbour.y, neighbour.z];
-        WFCTile collapsedTile = waveGrid[collapsedCell.x, collapsedCell.y, collapsedCell.z][0];
-        List<WFCTile> collapsedTileConnections = collapsedTile.GetPossibleNeighbours(connectionDirection);
-        possibleTiles = possibleTiles.Where(tile => collapsedTileConnections.Contains(tile)).ToList();
+        int optionsPreRemoval = possibleTiles.Count;
+        List<WFCTile> collapsedCell = waveGrid[collapsedCellIndex.x, collapsedCellIndex.y, collapsedCellIndex.z];
+        List<WFCTile> collapsedCellConnections = collapsedCell.SelectMany(tile => tile.GetPossibleNeighbours(connectionDirection)).ToList();
+        possibleTiles = possibleTiles.Where(tile => collapsedCellConnections.Contains(tile)).ToList();
 
         if(possibleTiles.Count == 0)
         {
             new InvalidOperationException(neighbour + " has no possible tiles after propagation from " + collapsedCell);
         }
+        return optionsPreRemoval - possibleTiles.Count;
     }
 
 }
