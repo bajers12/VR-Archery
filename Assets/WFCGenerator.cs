@@ -69,9 +69,7 @@ internal class WFCGenerator
     {
         Vector3Int chosenCell = FindRandomBestCandidate();
         WFCTile chosenTile = PickTile(chosenCell);
-        Debug.Log("Observed " + chosenCell + " with entropy of " + Entropy(chosenCell));
         CollapseCell(chosenCell, chosenTile);
-        Debug.Log("Collapsed " + chosenCell + " to " + chosenTile + ", now has " + Entropy(chosenCell) + " entropy");
         return chosenCell;
     }
 
@@ -110,6 +108,10 @@ internal class WFCGenerator
                 }
             }
         }
+        if(candidates.Count == 0)
+        {
+            throw new InvalidOperationException("No dandidates to pick from");
+        }
         return candidates[Random.Range(0, candidates.Count)];
     }
 
@@ -134,7 +136,7 @@ internal class WFCGenerator
         List<WFCTile> tileSuperpositions = waveGrid[cell.x, cell.y, cell.z];
         if(tileSuperpositions.Count == 0)
         {
-            Debug.Log("No options at cell " + cell);
+            throw new InvalidOperationException(cell + " has no possible tiles to pick from");
         }
         return tileSuperpositions[Random.Range(0, tileSuperpositions.Count)];
     }
@@ -180,15 +182,15 @@ internal class WFCGenerator
 
     void removeUnviableTiles(Vector3Int neighbour, Vector3Int collapsedCell, Direction connectionDirection)
     {
-        Debug.Log("Removing unviable tiles from " + neighbour + " in direction " + connectionDirection);
-        List<WFCTile> previousPossibleTiles = waveGrid[neighbour.x, neighbour.y, neighbour.z];
-        Debug.Log("Previous possible tiles " + previousPossibleTiles.Count);
+        List<WFCTile> possibleTiles = waveGrid[neighbour.x, neighbour.y, neighbour.z];
         WFCTile collapsedTile = waveGrid[collapsedCell.x, collapsedCell.y, collapsedCell.z][0];
         List<WFCTile> collapsedTileConnections = collapsedTile.GetPossibleNeighbours(connectionDirection);
-        List<WFCTile> possibleTiles = previousPossibleTiles.Where(tile => collapsedTileConnections.Contains(tile)).ToList();
-        Debug.Log("Now possible tiles " + possibleTiles.Count);
+        possibleTiles = possibleTiles.Where(tile => collapsedTileConnections.Contains(tile)).ToList();
 
-        waveGrid[neighbour.x, neighbour.y, neighbour.z] = possibleTiles;
+        if(possibleTiles.Count == 0)
+        {
+            new InvalidOperationException(neighbour + " has no possible tiles after propagation from " + collapsedCell);
+        }
     }
 
 }
