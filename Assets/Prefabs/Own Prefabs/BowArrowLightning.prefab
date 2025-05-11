@@ -208,6 +208,7 @@ MonoBehaviour:
   gravityScale: 0.5
   hitSource: {fileID: 4979999199173564063}
   tip: {fileID: 6903030755361530405}
+  hitEffectPrefab: {fileID: 5280115794531345928, guid: bc52552de780c8b458e7d50449c1f434, type: 3}
 --- !u!1001 &8326983131768757339
 PrefabInstance:
   m_ObjectHideFlags: 0

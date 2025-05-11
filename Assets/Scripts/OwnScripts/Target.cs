@@ -6,6 +6,7 @@ public class Target : MonoBehaviour
 {
     public int scoreValue = 100;
     public bool destroyOnHit = false;
+    public ParticleSystem deathEffectPrefab;
 
     public void hit()
     {
@@ -14,16 +15,21 @@ public class Target : MonoBehaviour
         while (!t.CompareTag("Enemy"))
         {
             t = t.parent;
+
         }
         if (!destroyOnHit){
             return;
         }
-
-
-        // If we found an Enemy up the tree, destroy it; otherwise destroy this
+        t.GetComponent<DeathEffect>().die();
         if (t.CompareTag("Enemy"))
             Destroy(t.gameObject);
         else
             Destroy(gameObject);
+            
     }
+    
+    private void OnDestroy()
+    {
+    }
+
 }

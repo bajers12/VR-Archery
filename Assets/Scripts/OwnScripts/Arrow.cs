@@ -11,11 +11,9 @@ public class Arrow : MonoBehaviour
     public float gravityScale = 0.5f;
 
 
-    [Header("Sound")]
-    public AudioSource hitSource;
-
     [Header("References")]
     public Transform tip;
+
 
     private Rigidbody _rb;
     private bool _inAir = false;
@@ -77,6 +75,8 @@ public class Arrow : MonoBehaviour
             if (Physics.Linecast(_lastPosition, tip.position,
                                  out RaycastHit hit, collisionMask))
             {
+
+
                 if (hit.transform.TryGetComponent<Rigidbody>(out Rigidbody body))
                 {
                     // Stick the arrow and transfer impulse
@@ -88,8 +88,9 @@ public class Arrow : MonoBehaviour
                 {   
                     GameManager.Instance.AddScore(target.scoreValue);
 
-                    hitSource.PlayOneShot(hitSource.clip);
+                    GameManager.Instance.hitSource.Play();
                     target.hit();
+                    Destroy(gameObject);
 
                 }
                 StopArrow();
@@ -103,7 +104,7 @@ public class Arrow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // (Optional: if you need other physics logic outside the coroutine)
+        // (Optional: if we need other stuff other than the coroutine)
     }
 
     private void StopArrow()

@@ -35,6 +35,7 @@ public class EnemyTarget : MonoBehaviour
         {
             Debug.Log("Base is hit");
             remainingLife--;
+            ClearAllEnemies();
         }
         if(remainingLife <= 0)
         {
@@ -47,10 +48,20 @@ public class EnemyTarget : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         StartCoroutine(resetGame(gameResetDelay));
     }
+    private void ClearAllEnemies()
+    {
+        foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
+        {   
+            var t = e.GetComponent<DeathEffect>();
+            t.die();
+            Destroy(e);
+        }
+    }
 
     IEnumerator resetGame(float delay)
     {
         yield return new WaitForSeconds(delay);
+        GameManager.Instance.ResetScore();
         SceneManager.LoadScene("FFOSScene");
     }
 

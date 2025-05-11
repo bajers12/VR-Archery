@@ -191,5 +191,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
+  nockPoint: {fileID: 0}
   gravityScale: 0.5
+  hitSource: {fileID: 0}
   tip: {fileID: 842954154607607953}
+  hitEffectPrefab: {fileID: 5280115794531345928, guid: bc52552de780c8b458e7d50449c1f434, type: 3}
