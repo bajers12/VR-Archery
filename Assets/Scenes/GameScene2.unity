@@ -3399,7 +3399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab28e09c16b770d4baafdb26af98e02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyThrowerPrefab: {fileID: 7043635459473835880, guid: bdb2d61f3d517094ea71573748a99db9, type: 3}
+  enemyThrowerPrefab: {fileID: 4751014782291146855, guid: 0438f7fd933c2d64688bed0c2c0da417, type: 3}
   spawnPoint: {fileID: 1117871407}
   spawnInterval: 10
   spawnIntervalVariation: 5

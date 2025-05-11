@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30768746c9031b43b06f6361affb808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spinSpeed: 120
+  rotationSpeed: 120
 --- !u!64 &-5494190551538392042
 MeshCollider:
   m_ObjectHideFlags: 0
