@@ -11,11 +11,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private Transform spawnPoint;
     [SerializeField]
-    private float spawnInterval = 5.0f;
+    private float spawnInterval = 10.0f;
     [SerializeField]
-    private float spawnIntervalVariation = 2.0f;
+    private float spawnIntervalVariation = 5.0f;
 
     private float timeSinceLastSpawn = 0.0f;
+    private DifficultyScaler difficultyScaler;
 
     public EnemyTarget enemyTarget;
 
@@ -24,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
     {
         float randomTimeOffset = Random.Range(0f, spawnInterval);
         timeSinceLastSpawn = randomTimeOffset;
+        difficultyScaler = DifficultyScaler.instance;
     }
     void Update()
     {
@@ -37,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
 
     bool shouldSpawnEnemy()
     {
-        return timeSinceLastSpawn >= spawnInterval;
+        return timeSinceLastSpawn * difficultyScaler.GetDifficultyScale() >= spawnInterval ;
     }
 
     void spawnEnemyAndSetPath()

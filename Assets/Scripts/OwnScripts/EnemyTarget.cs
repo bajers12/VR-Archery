@@ -12,11 +12,25 @@ public class EnemyTarget : MonoBehaviour
     public float gameResetDelay = 5.0f;
     public int maxLife;
     public int remainingLife;
+    public float defenseBufferTime = 3;
+    public int defenseBufferThreshhold = 3;
+    public float defenseRadius = 5;
+
+    private float timeSinceLastDamageTaken = 0f;
+    private int damageTakenBuffer = 0;
+
     // Start is called before the first frame update
     void Awake()
     {
         enemyTarget = this;
         remainingLife = maxLife;
+        timeSinceLastDamageTaken = 0f;
+        damageTakenBuffer = 0;
+    }
+
+    private void Update()
+    {
+        timeSinceLastDamageTaken += Time.deltaTime;
     }
 
     public static EnemyTarget GetTarget()
@@ -29,17 +43,36 @@ public class EnemyTarget : MonoBehaviour
         return enemyTarget.remainingLife;
     }
 
-    public void GetHit()
+    public void GetHit(int damage)
     {
         if(remainingLife > 0)
         {
             Debug.Log("Base is hit");
-            remainingLife--;
-            ClearAllEnemies();
+            remainingLife -= damage;
+            HandleDefense(damage);
+            timeSinceLastDamageTaken = 0f;
+
         }
-        if(remainingLife <= 0)
+        if (remainingLife <= 0)
         {
             OnBaseDestroyed();
+        }
+    }
+
+    void HandleDefense(int damageTaken)
+    {
+        if(timeSinceLastDamageTaken > defenseBufferTime)
+        {
+            damageTakenBuffer = damageTaken;
+        } else
+        {
+            damageTaken += damageTakenBuffer += damageTaken;
+        }
+
+        if(damageTakenBuffer >= defenseBufferThreshhold)
+        {
+            ClearEnemiesInRadius(defenseRadius);
+            damageTakenBuffer = 0;
         }
     }
 
@@ -48,6 +81,21 @@ public class EnemyTarget : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         StartCoroutine(resetGame(gameResetDelay));
     }
+
+    private void ClearEnemiesInRadius(float radius)
+    {
+        foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if(radius > Vector3.Distance(transform.position, e.transform.position))
+            {
+                return;
+            }
+            var t = e.GetComponent<DeathEffect>();
+            t.die();
+            Destroy(e);
+        }
+    }
+
     private void ClearAllEnemies()
     {
         foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))

@@ -11,6 +11,7 @@ public class SampleEnemy : MonoBehaviour
     public Transform[] wayPoints;
 
     public float AttackRange = 2.0f;
+    public int damage = 1;
 
     public int passedWayPoints = 0;
     public EnemyTarget enemyTarget;
@@ -51,7 +52,7 @@ public class SampleEnemy : MonoBehaviour
     void AttackTarget()
     {
         //Todo more stuff
-        enemyTarget.GetHit();
+        enemyTarget.GetHit(damage);
         gameObject.SetActive(false);
     }
 
