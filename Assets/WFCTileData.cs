@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Unity.XR.CoreUtils.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public enum Orientation
@@ -30,7 +28,7 @@ public struct Connection
     public List<Orientation> orientations;
 }
 
-[CreateAssetMenu(fileName = "newWFCTIleData", menuName = "WFCTile")]
+[CreateAssetMenu(fileName = "newWFCTileData", menuName = "WFCTile")]
 public class WFCTileData : ScriptableObject
 {
 
@@ -66,7 +64,7 @@ public class WFCTileData : ScriptableObject
                                                                         { Direction.WEST, westConnections }, { Direction.UP, upConnections }, { Direction.DOWN, downConnections } };
     }
 
-    public List<WFCTile> getAllRotatedPermutations()
+    public List<WFCTile> GetAllRotatedPermutations()
     {
         return rotatedPermutations.Values.ToList();
     }

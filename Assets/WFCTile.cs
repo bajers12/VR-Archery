@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WFCTile
 {
-    public Orientation orientation { get; }
+    Orientation orientation;
     WFCTileData data { get; }
 
     public WFCTile(WFCTileData data, Orientation rotation)
@@ -12,8 +12,6 @@ public class WFCTile
         this.orientation = rotation;
 
     }
-
-
 
     public List<WFCTile> GetPossibleNeighbours(Direction direction)
     {

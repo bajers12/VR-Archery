@@ -57,7 +57,7 @@ internal class WFCGenerator
             return true;
         } catch (Exception e)
         {
-            Debug.LogError(e);
+            Debug.Log(e.Message);
             return false;
         }
     }
