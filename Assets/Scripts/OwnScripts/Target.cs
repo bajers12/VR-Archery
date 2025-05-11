@@ -12,6 +12,8 @@ public class Target : MonoBehaviour
     {
         
         Transform t = transform;
+        if (t.CompareTag("Enemy"))
+        Destroy(t.gameObject);
         while (!t.CompareTag("Enemy"))
         {
             t = t.parent;
