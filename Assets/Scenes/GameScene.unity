@@ -392,8 +392,8 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 107977692}
   spawnPoint: {fileID: 2110239005}
-  spawnInterval: 5
-  spawnIntervalVariation: 2
+  spawnInterval: 10
+  spawnIntervalVariation: 5
   enemyTarget: {fileID: 386464205}
 --- !u!65 &118595714
 BoxCollider:
@@ -966,8 +966,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverText: {fileID: 1441671525}
   gameResetDelay: 5
-  maxLife: 5
+  maxLife: 10
   remainingLife: 0
+  defenseBufferTime: 3
+  defenseBufferThreshhold: 3
+  defenseRadius: 5
 --- !u!23 &386464206
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2186,8 +2189,8 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 2071292915}
   spawnPoint: {fileID: 356001366}
-  spawnInterval: 5
-  spawnIntervalVariation: 2
+  spawnInterval: 10
+  spawnIntervalVariation: 5
   enemyTarget: {fileID: 386464205}
 --- !u!65 &975806282
 BoxCollider:
@@ -3211,8 +3214,8 @@ MonoBehaviour:
   - {fileID: 1729445793}
   - {fileID: 346170614}
   spawnPoint: {fileID: 1117871407}
-  spawnInterval: 5
-  spawnIntervalVariation: 2
+  spawnInterval: 10
+  spawnIntervalVariation: 5
   enemyTarget: {fileID: 386464205}
 --- !u!65 &1360179826
 BoxCollider:
@@ -4996,7 +4999,7 @@ Transform:
   m_GameObject: {fileID: 2051269570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.185, y: -3.04, z: 23.2}
+  m_LocalPosition: {x: 21.185, y: -3.4970002, z: 23.2}
   m_LocalScale: {x: 12.548678, y: 0.5076808, z: 8.012749}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5196,7 +5199,7 @@ Transform:
   m_GameObject: {fileID: 2110239004}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.27, z: 1.87}
+  m_LocalPosition: {x: 0, y: -0.3801, z: 1.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11751,6 +11754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c59e4e2259f314cb9282db9b16ae61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logBase: 2
+  timeScale: 15
 --- !u!65 &8350470993822712317
 BoxCollider:
   m_ObjectHideFlags: 0
