@@ -62,7 +62,7 @@ public class EnemyTarget : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         GameManager.Instance.ResetScore();
-        SceneManager.LoadScene("FFOSScene");
+        SceneManager.LoadScene("MenuScene");
     }
 
 }
