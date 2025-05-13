@@ -3170,6 +3170,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 386464205}
     - target: {fileID: 5685807654914522193, guid: 655e87ec99f05994fa2e0930b55528e6, type: 3}
+      propertyPath: spawnInterval
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685807654914522193, guid: 655e87ec99f05994fa2e0930b55528e6, type: 3}
       propertyPath: wayPoints.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3689,6 +3693,10 @@ PrefabInstance:
       propertyPath: enemyTarget
       value: 
       objectReference: {fileID: 386464205}
+    - target: {fileID: 5685807654914522193, guid: 655e87ec99f05994fa2e0930b55528e6, type: 3}
+      propertyPath: spawnInterval
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5685807654914522193, guid: 655e87ec99f05994fa2e0930b55528e6, type: 3}
       propertyPath: wayPoints.Array.size
       value: 1
@@ -4906,7 +4914,7 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 346170614}
   spawnPoint: {fileID: 1863412598}
-  spawnInterval: 10
+  spawnInterval: 25
   spawnIntervalVariation: 5
   enemyTarget: {fileID: 386464205}
 --- !u!4 &1647260823 stripped
@@ -5212,7 +5220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyThrowerPrefab: {fileID: 4751014782291146855, guid: 0438f7fd933c2d64688bed0c2c0da417, type: 3}
   spawnPoint: {fileID: 164723635}
-  spawnInterval: 20
+  spawnInterval: 25
   spawnIntervalVariation: 5
   stationPoints:
   - {fileID: 243871752}
@@ -6400,6 +6408,10 @@ PrefabInstance:
       propertyPath: m_LocomotionProvider
       value: 
       objectReference: {fileID: 1128618314}
+    - target: {fileID: 3129436419481678373, guid: 450acdeb36a755147a56eff9b34e352e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 7396834796771824980, guid: 450acdeb36a755147a56eff9b34e352e, type: 3}
       propertyPath: m_InteractionManager
       value: 
@@ -6759,6 +6771,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 386464205}
     - target: {fileID: 5685807654914522193, guid: 655e87ec99f05994fa2e0930b55528e6, type: 3}
+      propertyPath: spawnInterval
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685807654914522193, guid: 655e87ec99f05994fa2e0930b55528e6, type: 3}
       propertyPath: wayPoints.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -6829,15 +6845,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9084856347067750647, guid: fb9408577b252be409d5bddeca2ec9b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.37
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 9084856347067750647, guid: fb9408577b252be409d5bddeca2ec9b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.97
+      value: 1.58
       objectReference: {fileID: 0}
     - target: {fileID: 9084856347067750647, guid: fb9408577b252be409d5bddeca2ec9b2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.19
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 9084856347067750647, guid: fb9408577b252be409d5bddeca2ec9b2, type: 3}
       propertyPath: m_LocalRotation.w

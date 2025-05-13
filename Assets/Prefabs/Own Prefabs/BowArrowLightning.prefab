@@ -190,7 +190,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &5213632537354463614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,9 +206,7 @@ MonoBehaviour:
   speed: 25
   nockPoint: {fileID: 8943721581783813354}
   gravityScale: 0.5
-  hitSource: {fileID: 4979999199173564063}
   tip: {fileID: 6903030755361530405}
-  hitEffectPrefab: {fileID: 5280115794531345928, guid: bc52552de780c8b458e7d50449c1f434, type: 3}
 --- !u!1001 &8326983131768757339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,11 +264,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31f4640d0dcea1341a038815ba4581b4, type: 3}
---- !u!82 &4979999199173564063 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3932735289189419716, guid: 31f4640d0dcea1341a038815ba4581b4, type: 3}
-  m_PrefabInstance: {fileID: 8326983131768757339}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6295368153253118933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2653395273594347406, guid: 31f4640d0dcea1341a038815ba4581b4, type: 3}
