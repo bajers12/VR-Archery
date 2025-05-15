@@ -9,20 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10b2c1a55fd20fe42a827d9bc9def04c, type: 3}
-  m_Name: CubeTile 2
+  m_Script: {fileID: 11500000, guid: 9bf75becf46627748a00718907f8c9ab, type: 3}
+  m_Name: SymmetricTestTile
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 992985447273538559, guid: 505ec45bbe4b4bc4bac2cb4318b2be98, type: 3}
   northConnections:
-  - tileSO: {fileID: 11400000}
-    orientations: 00000000
-  eastConnections:
-  - tileSO: {fileID: 11400000}
-    orientations: 00000000
-  southConnections:
-  - tileSO: {fileID: 11400000}
-    orientations: 00000000
-  westConnections:
   - tileSO: {fileID: 11400000}
     orientations: 00000000
   upConnections:

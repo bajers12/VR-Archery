@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6372f45275f25aa499859c3124ddef87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileSet: {fileID: 11400000, guid: f3e073ba604a0ab449f21d4402492d49, type: 2}
+  tileSet: {fileID: 11400000, guid: aaad0d122be4c5b459d80ca432aba5e2, type: 2}
   gridDimensions: {x: 5, y: 5, z: 5}
   tileScale: 1
 --- !u!4 &171895608

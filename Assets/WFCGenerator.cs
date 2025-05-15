@@ -53,7 +53,6 @@ internal class WFCGenerator
         try
         {
             Vector3Int observedCell = Observe();
-            Propagate(observedCell);
             return true;
         } catch (Exception e)
         {
@@ -76,6 +75,8 @@ internal class WFCGenerator
     void CollapseCell(Vector3Int cell, WFCTile tile)
     {
         waveGrid[cell.x, cell.y, cell.z] = new List<WFCTile>() { tile };
+        Propagate(cell);
+
 
     }
 
@@ -150,13 +151,11 @@ internal class WFCGenerator
         foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
             neighbour = neighbours[(int)dir];
-            if (neighbour == invalidV3)
+            if(!InGrid(neighbour) || IsCollapsed(neighbour))
             {
                 continue;
             }
-            if(IsCollapsed(neighbour)) {
-                continue;
-            }
+
             int removedOptions = removeUnviableTiles(neighbour, collapsedCell, dir);
             Debug.Log("Removed options: " + removedOptions);
             if(removedOptions > 0)
@@ -174,13 +173,7 @@ internal class WFCGenerator
         for(int i =0; i<neighbours.Length; i++)
         {
             neighbour = cell + NESWUD[i];
-            if(InGrid(neighbour))
-            {
-                neighbours[i] = neighbour;
-            } else
-            {
-                neighbours[i] = invalidV3;
-            }
+            neighbours[i] = neighbour;
         }
         return neighbours;
     }

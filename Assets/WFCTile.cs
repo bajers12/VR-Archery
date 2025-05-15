@@ -4,9 +4,9 @@ using UnityEngine;
 public class WFCTile
 {
     Orientation orientation;
-    WFCTileData data { get; }
+    public IWFCTileData data { get; }
 
-    public WFCTile(WFCTileData data, Orientation rotation)
+    public WFCTile(IWFCTileData data, Orientation rotation)
     {
         this.data = data;
         this.orientation = rotation;
@@ -20,11 +20,11 @@ public class WFCTile
 
     public override string ToString()
     {
-        return data.name + orientation;
+        return "" + data + orientation;
     }
 
-    public GameObject getPrefab()
+    public GameObject GetPrefab()
     {
-        return data.tilePrefab;
+        return data.GetPrefab();
     }
 }

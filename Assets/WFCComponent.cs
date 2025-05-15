@@ -13,7 +13,7 @@ public class WFCComponent : MonoBehaviour
     [SerializeField]
     public float tileScale = 1f;
 
-    public List<WFCTileData>[,,] generatedTiles;
+    public List<StandardWFCTileData>[,,] generatedTiles;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class WFCComponent : MonoBehaviour
                     List<WFCTile> tileSuperpositions = generatedTiles[i, j, k];
                     if(tileSuperpositions.Count == 1)
                     {
-                        Instantiate(generatedTiles[i, j, k][0].getPrefab(), new Vector3(i, j, k) * tileScale, generatedTiles[i, j, k][0].getPrefab().transform.rotation);
+                        Instantiate(generatedTiles[i, j, k][0].GetPrefab(), new Vector3(i, j, k) * tileScale, generatedTiles[i, j, k][0].GetPrefab().transform.rotation);
 
                     }
                 }
