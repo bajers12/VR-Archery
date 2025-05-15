@@ -9,17 +9,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf75becf46627748a00718907f8c9ab, type: 3}
-  m_Name: Air
+  m_Script: {fileID: 11500000, guid: ccd2f6f0d3013ad468144413582f926d, type: 3}
+  m_Name: air
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1499667682130136042, guid: c30f1b3e4cecd6c4496f7b8a7bdfb84c, type: 3}
-  horizontalConnections:
+  northConnections:
+  - tileSO: {fileID: 11400000, guid: 61e06e41a2ceff3449ced60bbe7e15e7, type: 2}
+    orientations: 0000000001000000
+  - tileSO: {fileID: 11400000, guid: 467cbfa78e59f7a4994db52f6aea41f8, type: 2}
+    orientations: 0000000001000000
+  - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
+    orientations: 0100000003000000
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 0100000003000000
   - tileSO: {fileID: 11400000}
-    orientations: 00000000010000000200000003000000
-  upConnections:
+    orientations: 01000000030000000000000002000000
+  eastConnections:
+  - tileSO: {fileID: 11400000}
+    orientations: 01000000020000000000000003000000
+  - tileSO: {fileID: 11400000, guid: 467cbfa78e59f7a4994db52f6aea41f8, type: 2}
+    orientations: 0100000002000000
+  - tileSO: {fileID: 11400000, guid: 61e06e41a2ceff3449ced60bbe7e15e7, type: 2}
+    orientations: 0100000002000000
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 0000000002000000
+  - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
+    orientations: 0000000002000000
+  southConnections:
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 0100000003000000
+  - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
+    orientations: 0100000003000000
+  - tileSO: {fileID: 11400000, guid: 61e06e41a2ceff3449ced60bbe7e15e7, type: 2}
+    orientations: 0200000003000000
+  - tileSO: {fileID: 11400000, guid: 467cbfa78e59f7a4994db52f6aea41f8, type: 2}
+    orientations: 0200000003000000
+  - tileSO: {fileID: 11400000}
+    orientations: 01000000030000000200000000000000
+  westConnections:
   - tileSO: {fileID: 11400000}
     orientations: 01000000020000000300000000000000
+  - tileSO: {fileID: 11400000, guid: 467cbfa78e59f7a4994db52f6aea41f8, type: 2}
+    orientations: 0000000003000000
+  - tileSO: {fileID: 11400000, guid: 61e06e41a2ceff3449ced60bbe7e15e7, type: 2}
+    orientations: 0300000000000000
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 0000000002000000
+  - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
+    orientations: 0000000002000000
+  upConnections:
+  - tileSO: {fileID: 11400000}
+    orientations: 00000000010000000200000003000000
   downConnections:
+  - tileSO: {fileID: 11400000, guid: 8e7e4ea852c26d24f9c8ae49e183d4cc, type: 2}
+    orientations: 00000000010000000200000003000000
   - tileSO: {fileID: 11400000}
     orientations: 00000000010000000200000003000000
   - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}

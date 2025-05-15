@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd2f6f0d3013ad468144413582f926d, type: 3}
   m_Name: CornerTower
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 5284405618717293078, guid: 2e8b07cd079e8f54d80df86e94a5bd82, type: 3}
+  tilePrefab: {fileID: 8357612079611103324, guid: cf45f490b6ff112439f651bccc0612d1, type: 3}
   northConnections:
   - tileSO: {fileID: 11400000}
     orientations: 0200000003000000
   - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
     orientations: 0000000002000000
   eastConnections:
-  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
+  - tileSO: {fileID: 11400000, guid: b89dcd2b6a85dfc4b8cba6aef1bd2c60, type: 2}
     orientations: 01000000020000000300000000000000
   southConnections:
-  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
+  - tileSO: {fileID: 11400000, guid: b89dcd2b6a85dfc4b8cba6aef1bd2c60, type: 2}
     orientations: 00000000010000000200000003000000
   westConnections:
   - tileSO: {fileID: 11400000}

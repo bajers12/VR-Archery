@@ -59,13 +59,15 @@ internal class WFCGenerator
             {
                 for (int k = 0; k < waveGrid.GetLength(2); k++)
                 {
-                    if(j == 0 && ( i == 0 || k == 0 || i == waveGrid.GetLength(0) -1 || k == waveGrid.GetLength(2) - 1) )
+                    if (j == 0 && (i == 0 || k == 0 || i == waveGrid.GetLength(0) - 1 || k == waveGrid.GetLength(2) - 1))
                     {
                         CollapseCell(new Vector3Int(i, j, k), tileSetData.ground.GetOrientedTile(Orientation.NORTH));
-                    } 
+                    }
+
                 }
             }
         }
+        
     }
 
     void FillWaveGrid(List<WFCTile>[,,] waveGrid)

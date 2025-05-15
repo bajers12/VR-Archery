@@ -19,10 +19,10 @@ MonoBehaviour:
   - tileSO: {fileID: 11400000, guid: 467cbfa78e59f7a4994db52f6aea41f8, type: 2}
     orientations: 0200000003000000
   eastConnections:
-  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
+  - tileSO: {fileID: 11400000, guid: b89dcd2b6a85dfc4b8cba6aef1bd2c60, type: 2}
     orientations: 00000000010000000200000003000000
   southConnections:
-  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
+  - tileSO: {fileID: 11400000, guid: b89dcd2b6a85dfc4b8cba6aef1bd2c60, type: 2}
     orientations: 01000000020000000300000000000000
   westConnections:
   - tileSO: {fileID: 11400000}
