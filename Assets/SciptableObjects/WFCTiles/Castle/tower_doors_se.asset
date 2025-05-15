@@ -10,32 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccd2f6f0d3013ad468144413582f926d, type: 3}
-  m_Name: CornerTower
+  m_Name: tower_doors_se
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 5284405618717293078, guid: 2e8b07cd079e8f54d80df86e94a5bd82, type: 3}
+  tilePrefab: {fileID: 5332346674196202266, guid: 68c92f163f3c84e49b7ccde6e34ef41b, type: 3}
   northConnections:
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 0000000002000000
   - tileSO: {fileID: 11400000}
     orientations: 0200000003000000
-  - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
-    orientations: 0000000002000000
   eastConnections:
   - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
     orientations: 01000000020000000300000000000000
   southConnections:
   - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
-    orientations: 00000000010000000200000003000000
+    orientations: 01000000020000000300000000000000
   westConnections:
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 0100000003000000
   - tileSO: {fileID: 11400000}
     orientations: 0100000002000000
-  - tileSO: {fileID: 11400000, guid: 69dcef0448349f644aa6769f8cfd915f, type: 2}
-    orientations: 0100000003000000
   upConnections:
-  - tileSO: {fileID: 11400000}
-    orientations: 00000000
-  - tileSO: {fileID: 11400000, guid: 61e06e41a2ceff3449ced60bbe7e15e7, type: 2}
-    orientations: 00000000
+  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
+    orientations: 00000000010000000200000003000000
   downConnections:
-  - tileSO: {fileID: 11400000}
+  - tileSO: {fileID: 11400000, guid: 467cbfa78e59f7a4994db52f6aea41f8, type: 2}
     orientations: 00000000
   - tileSO: {fileID: 11400000, guid: f38ce4005a3ae3240a3f3180db44be34, type: 2}
     orientations: 00000000

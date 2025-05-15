@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf75becf46627748a00718907f8c9ab, type: 3}
   m_Name: Air
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 0}
-  horizontalConnections: []
-  upConnections: []
-  downConnections: []
+  tilePrefab: {fileID: 1499667682130136042, guid: c30f1b3e4cecd6c4496f7b8a7bdfb84c, type: 3}
+  horizontalConnections:
+  - tileSO: {fileID: 11400000}
+    orientations: 00000000010000000200000003000000
+  upConnections:
+  - tileSO: {fileID: 11400000}
+    orientations: 01000000020000000300000000000000
+  downConnections:
+  - tileSO: {fileID: 11400000}
+    orientations: 00000000010000000200000003000000
+  - tileSO: {fileID: 11400000, guid: 6340e2659e909114b8d8969ce0f9fe50, type: 2}
+    orientations: 00000000010000000200000003000000
+  - tileSO: {fileID: 11400000, guid: 61e06e41a2ceff3449ced60bbe7e15e7, type: 2}
+    orientations: 00000000010000000200000003000000
