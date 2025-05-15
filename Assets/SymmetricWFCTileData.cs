@@ -11,7 +11,7 @@ public class SymmetricWFCTileData : WFCTileDataBase
     //All horizontal sides are equal, some are just more equal than other
     //NMorth conenctiosn counts for all horizontal, just added north to specify that we describe the connection in north as base orientation
     [SerializeField]
-    List<Connection> northConnections;
+    List<Connection> horizontalConnections;
     [SerializeField]
     List<Connection> upConnections;
     [SerializeField]
@@ -41,7 +41,7 @@ public class SymmetricWFCTileData : WFCTileDataBase
         } else
         {
             orientationOffset = (Orientation) connectionDirection;
-            chosenConnections = northConnections;
+            chosenConnections = horizontalConnections;
         }
         tiles = chosenConnections.SelectMany(con => con.orientations.Select(orientation => con.tileSO.GetOrientedTile(GetFinalOrientation(orientation, orientationOffset)))).ToList();
         return tiles;

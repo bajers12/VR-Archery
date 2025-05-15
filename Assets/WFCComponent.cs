@@ -28,8 +28,8 @@ public class WFCComponent : MonoBehaviour
                     List<WFCTile> tileSuperpositions = generatedTiles[i, j, k];
                     if(tileSuperpositions.Count == 1)
                     {
-                        Instantiate(generatedTiles[i, j, k][0].GetPrefab(), new Vector3(i, j, k) * tileScale, generatedTiles[i, j, k][0].GetPrefab().transform.rotation);
-
+                        GameObject tile = Instantiate(generatedTiles[i, j, k][0].GetPrefab(), new Vector3(i, j, k) * tileScale, generatedTiles[i, j, k][0].GetPrefab().transform.rotation);
+                        tile.name = "" + i + ", " + j + ", " + k;
                     }
                 }
             }

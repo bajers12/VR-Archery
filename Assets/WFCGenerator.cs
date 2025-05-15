@@ -4,11 +4,23 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public class NoCandidatesException : Exception
+{
+    public NoCandidatesException() : base() { }
+
+    public NoCandidatesException(string message) : base(message) { }
+}
+
+public class NoOptionsException : Exception
+{
+    public NoOptionsException() : base() { }
+
+    public NoOptionsException(string message) : base(message) { }
+}
 
 internal class WFCGenerator
 {
 
-    public static Vector3Int invalidV3 = new Vector3Int(-1, -1);
     public static Vector3Int[] NESWUD = { Vector3Int.forward, Vector3Int.right, Vector3Int.back, Vector3Int.left, Vector3Int.up, Vector3Int.down };
     List<WFCTile> tileSet;
     List<WFCTile>[,,] waveGrid;
@@ -56,7 +68,7 @@ internal class WFCGenerator
             return true;
         } catch (Exception e)
         {
-            Debug.Log(e.Message);
+            Debug.Log(e);
             return false;
         }
     }
@@ -76,8 +88,6 @@ internal class WFCGenerator
     {
         waveGrid[cell.x, cell.y, cell.z] = new List<WFCTile>() { tile };
         Propagate(cell);
-
-
     }
 
     Vector3Int FindRandomBestCandidate()
@@ -111,7 +121,7 @@ internal class WFCGenerator
         }
         if(candidates.Count == 0)
         {
-            throw new InvalidOperationException("No dandidates to pick from");
+            throw new NoCandidatesException("no more valid candidates");
         }
         return candidates[Random.Range(0, candidates.Count)];
     }
@@ -137,7 +147,7 @@ internal class WFCGenerator
         List<WFCTile> tileSuperpositions = waveGrid[cell.x, cell.y, cell.z];
         if(tileSuperpositions.Count == 0)
         {
-            throw new InvalidOperationException(cell + " has no possible tiles to pick from");
+            throw new NoOptionsException("Novalid options at " + cell);
         }
         return tileSuperpositions[Random.Range(0, tileSuperpositions.Count)];
     }
@@ -146,7 +156,6 @@ internal class WFCGenerator
     {
         Vector3Int[] neighbours = CellNeighbours(collapsedCell);
         Vector3Int neighbour;
-        Debug.Log("Propagating from cell " + collapsedCell);
 
         foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
@@ -157,10 +166,8 @@ internal class WFCGenerator
             }
 
             int removedOptions = removeUnviableTiles(neighbour, collapsedCell, dir);
-            Debug.Log("Removed options: " + removedOptions);
             if(removedOptions > 0)
             {
-                Debug.Log(neighbour);
                 Propagate(neighbour);
             }
         }
@@ -184,19 +191,21 @@ internal class WFCGenerator
         return inGrid;
     }
 
-    int removeUnviableTiles(Vector3Int neighbour, Vector3Int collapsedCellIndex, Direction connectionDirection)
+    int removeUnviableTiles(Vector3Int targetCellIndex, Vector3Int propagatedCellIndex, Direction connectionDirection)
     {
-        List<WFCTile> possibleTiles = waveGrid[neighbour.x, neighbour.y, neighbour.z];
-        int optionsPreRemoval = possibleTiles.Count;
-        List<WFCTile> collapsedCell = waveGrid[collapsedCellIndex.x, collapsedCellIndex.y, collapsedCellIndex.z];
-        List<WFCTile> collapsedCellConnections = collapsedCell.SelectMany(tile => tile.GetPossibleNeighbours(connectionDirection)).ToList();
-        possibleTiles = possibleTiles.Where(tile => collapsedCellConnections.Contains(tile)).ToList();
+        List<WFCTile> targetCell = waveGrid[targetCellIndex.x, targetCellIndex.y, targetCellIndex.z];
+        List<WFCTile> propagatedCell = waveGrid[propagatedCellIndex.x, propagatedCellIndex.y, propagatedCellIndex.z];
 
-        if(possibleTiles.Count == 0)
+        Debug.Log("Removing options in direction " + connectionDirection + " from " + propagatedCellIndex + propagatedCell[0]);
+
+        int optionsPreRemoval = targetCell.Count;
+        List<WFCTile> propagatedCellConnections = propagatedCell.SelectMany(tile => tile.GetPossibleNeighbours(connectionDirection)).ToList();
+        targetCell.RemoveAll(tile => !propagatedCellConnections.Contains(tile));
+        if(targetCell.Count == 0)
         {
-            new InvalidOperationException(neighbour + " has no possible tiles after propagation from " + collapsedCell);
+            new InvalidOperationException(targetCellIndex + " has no possible tiles after propagation from " + propagatedCell);
         }
-        return optionsPreRemoval - possibleTiles.Count;
+        return optionsPreRemoval - targetCell.Count;
     }
 
 }
