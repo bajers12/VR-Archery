@@ -26,6 +26,8 @@ internal class WFCGenerator
     List<WFCTile> tileSet;
     List<WFCTile>[,,] waveGrid;
 
+    int collapsedTiles = 0;
+
 
 
     //Provide tileset without rotation permutations
@@ -38,6 +40,7 @@ internal class WFCGenerator
 
     public List<WFCTile>[,,] Generate(Vector3Int dimensions)
     {
+        collapsedTiles = 0;
         waveGrid = new List<WFCTile>[dimensions.x, dimensions.y, dimensions.z];
         FillWaveGrid(waveGrid);
         PrecollapseWaveGrid(waveGrid);
@@ -45,7 +48,6 @@ internal class WFCGenerator
         {
             continue;
         }
-
         return waveGrid;
     }
 
@@ -120,17 +122,6 @@ internal class WFCGenerator
         Propagate(cell);
     }
 
-    void CollapseCell(Vector3Int cell, List<WFCTile> tiles)
-    {
-        int preCollapseSize = waveGrid[cell.x, cell.y, cell.z].Count;
-        waveGrid[cell.x, cell.y, cell.z] = tiles;
-        int postCollapseSize = waveGrid[cell.x, cell.y, cell.z].Count;
-        if(preCollapseSize > postCollapseSize)
-        {
-            Propagate(cell);
-        }
-    }
-
     Vector3Int FindRandomBestCandidate()
     {
         List<Vector3Int> candidates = new List<Vector3Int>();
@@ -174,11 +165,7 @@ internal class WFCGenerator
 
     float Entropy(Vector3Int cell)
     {
-        float entropy = 0;
-        foreach(WFCTile tile in waveGrid[cell.x, cell.y, cell.z])
-        {
-            entropy += 1;
-        }
+        float entropy = waveGrid[cell.x, cell.y, cell.z].Count;
         return entropy;
     }
 
@@ -243,7 +230,7 @@ internal class WFCGenerator
         targetCell.RemoveAll(tile => !propagatedCellConnections.Contains(tile));
         if(targetCell.Count == 0)
         {
-            new InvalidOperationException(targetCellIndex + " has no possible tiles after propagation from " + propagatedCell);
+            new NoOptionsException(targetCellIndex + " has no possible tiles after propagation from " + propagatedCell);
         }
         return optionsPreRemoval - targetCell.Count;
     }

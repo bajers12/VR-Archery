@@ -23,6 +23,11 @@ public class WFCTile
         return "" + data + orientation;
     }
 
+    public float GetRotation()
+    {
+        return 90 * (int)orientation;
+    }
+
     public GameObject GetPrefab()
     {
         return data.GetPrefab();
