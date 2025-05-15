@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf75becf46627748a00718907f8c9ab, type: 3}
   m_Name: Ground
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 8134837689134937748, guid: 92255066ac64c5e41a31146256ecd3cf, type: 3}
-  horizontalConnections:
-  - tileSO: {fileID: 11400000}
-    orientations: 00000000
-  upConnections:
-  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
-    orientations: 00000000
-  downConnections:
-  - tileSO: {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
-    orientations: 00000000
+  tilePrefab: {fileID: 0}
+  horizontalConnections: []
+  upConnections: []
+  downConnections: []

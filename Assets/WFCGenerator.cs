@@ -22,12 +22,16 @@ internal class WFCGenerator
 {
 
     public static Vector3Int[] NESWUD = { Vector3Int.forward, Vector3Int.right, Vector3Int.back, Vector3Int.left, Vector3Int.up, Vector3Int.down };
+    TileSetData tileSetData;
     List<WFCTile> tileSet;
     List<WFCTile>[,,] waveGrid;
 
+
+
     //Provide tileset without rotation permutations
-    public WFCGenerator(TileSet tileSet)
+    public WFCGenerator(TileSetData tileSet)
     {
+        this.tileSetData = tileSet;
         this.tileSet = tileSet.allRotatedPermutations();
         Debug.Log(this + " has " + this.tileSet.Count + " tile permutations");
     }
@@ -36,17 +40,32 @@ internal class WFCGenerator
     {
         waveGrid = new List<WFCTile>[dimensions.x, dimensions.y, dimensions.z];
         FillWaveGrid(waveGrid);
-
-        int populated_tilecount = 0;
+        PrecollapseWaveGrid(waveGrid);
         while(WFC())
         {
-            populated_tilecount++;
             continue;
         }
 
-        Debug.Log("Tiles generated " + populated_tilecount);
         return waveGrid;
     }
+
+    private void PrecollapseWaveGrid(List<WFCTile>[,,] waveGrid)
+    {
+        for (int i = 0; i < waveGrid.GetLength(0); i++)
+        {
+            for (int j = 0; j < waveGrid.GetLength(1); j++)
+            {
+                for (int k = 0; k < waveGrid.GetLength(2); k++)
+                {
+                    if(j == 0 && ( i == 0 || k == 0 || i == waveGrid.GetLength(0) -1 || k == waveGrid.GetLength(2) - 1) )
+                    {
+                        CollapseCell(new Vector3Int(i, j, k), tileSetData.ground.GetOrientedTile(Orientation.NORTH));
+                    } 
+                }
+            }
+        }
+    }
+
     void FillWaveGrid(List<WFCTile>[,,] waveGrid)
     {
         for (int i = 0; i < waveGrid.GetLength(0); i++)
@@ -64,7 +83,8 @@ internal class WFCGenerator
     {
         try
         {
-            Vector3Int observedCell = Observe();
+            Observation observedCell = Observe();
+            CollapseCell(observedCell.cell, observedCell.tile);
             return true;
         } catch (Exception e)
         {
@@ -76,18 +96,39 @@ internal class WFCGenerator
 
 
     //Finds cell with lowest evaluation function, determines a specific tile, and returns index of observed cell.
-    Vector3Int Observe()
+    public struct Observation
+    {
+        public Observation(Vector3Int cell, WFCTile tile)
+        {
+            this.cell = cell;
+            this.tile = tile;
+        }
+
+        public Vector3Int cell;
+        public WFCTile tile;
+    }
+    Observation Observe()
     {
         Vector3Int chosenCell = FindRandomBestCandidate();
         WFCTile chosenTile = PickTile(chosenCell);
-        CollapseCell(chosenCell, chosenTile);
-        return chosenCell;
+        return new Observation(chosenCell, chosenTile);
     }
 
     void CollapseCell(Vector3Int cell, WFCTile tile)
     {
         waveGrid[cell.x, cell.y, cell.z] = new List<WFCTile>() { tile };
         Propagate(cell);
+    }
+
+    void CollapseCell(Vector3Int cell, List<WFCTile> tiles)
+    {
+        int preCollapseSize = waveGrid[cell.x, cell.y, cell.z].Count;
+        waveGrid[cell.x, cell.y, cell.z] = tiles;
+        int postCollapseSize = waveGrid[cell.x, cell.y, cell.z].Count;
+        if(preCollapseSize > postCollapseSize)
+        {
+            Propagate(cell);
+        }
     }
 
     Vector3Int FindRandomBestCandidate()
@@ -166,7 +207,7 @@ internal class WFCGenerator
             }
 
             int removedOptions = removeUnviableTiles(neighbour, collapsedCell, dir);
-            if(removedOptions > 0)
+            if(removedOptions > 0) 
             {
                 Propagate(neighbour);
             }
@@ -196,7 +237,6 @@ internal class WFCGenerator
         List<WFCTile> targetCell = waveGrid[targetCellIndex.x, targetCellIndex.y, targetCellIndex.z];
         List<WFCTile> propagatedCell = waveGrid[propagatedCellIndex.x, propagatedCellIndex.y, propagatedCellIndex.z];
 
-        Debug.Log("Removing options in direction " + connectionDirection + " from " + propagatedCellIndex + propagatedCell[0]);
 
         int optionsPreRemoval = targetCell.Count;
         List<WFCTile> propagatedCellConnections = propagatedCell.SelectMany(tile => tile.GetPossibleNeighbours(connectionDirection)).ToList();

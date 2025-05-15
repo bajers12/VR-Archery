@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "newTileSet", menuName = "TileSet")]
-internal class TileSet : ScriptableObject
+internal class TileSetData : ScriptableObject
 {
+    public WFCTileDataBase ground;
+    public WFCTileDataBase air;
     public List<WFCTileDataBase> tiles;
 
     public List<WFCTile> allRotatedPermutations()

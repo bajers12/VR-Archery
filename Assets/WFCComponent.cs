@@ -7,7 +7,7 @@ public class WFCComponent : MonoBehaviour
     private WFCGenerator waveFunctionGenerator;
 
     [SerializeReference]
-    private TileSet tileSet;
+    private TileSetData tileSet;
     [SerializeField]
     private Vector3Int gridDimensions = new Vector3Int(3,3,3);
     [SerializeField]

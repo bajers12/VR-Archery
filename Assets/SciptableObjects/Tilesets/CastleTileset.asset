@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf016d5c64a0954690f7d91a1107896, type: 3}
   m_Name: CastleTileset
   m_EditorClassIdentifier: 
+  ground: {fileID: 11400000, guid: c2b69582124e24048ba2a64788451b2c, type: 2}
+  air: {fileID: 0}
   tiles:
-  - {fileID: 11400000, guid: df4d7a65cdebd8649a370c8ff4f91653, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: c2b69582124e24048ba2a64788451b2c, type: 2}
+  - {fileID: 11400000, guid: bb036e5058a7a904da992537c83d3ec1, type: 2}
+  - {fileID: 11400000, guid: 5b12a7245eaca4349ac530ba647f70ee, type: 2}

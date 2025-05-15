@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf75becf46627748a00718907f8c9ab, type: 3}
-  m_Name: Air
+  m_Script: {fileID: 11500000, guid: ccd2f6f0d3013ad468144413582f926d, type: 3}
+  m_Name: CornerTower
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 0}
-  horizontalConnections: []
+  northConnections: []
+  eastConnections: []
+  southConnections: []
+  westConnections: []
   upConnections: []
   downConnections: []

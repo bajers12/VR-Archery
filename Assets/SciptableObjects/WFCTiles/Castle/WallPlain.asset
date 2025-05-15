@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf016d5c64a0954690f7d91a1107896, type: 3}
-  m_Name: symmetryTest
+  m_Script: {fileID: 11500000, guid: ccd2f6f0d3013ad468144413582f926d, type: 3}
+  m_Name: WallPlain
   m_EditorClassIdentifier: 
-  tiles:
-  - {fileID: 11400000, guid: f7b6a6cff964f134fb4cec2bdecb3927, type: 2}
-  - {fileID: 11400000, guid: 0d010b0c80b3fe8488d1d9f6d85b0d6b, type: 2}
+  tilePrefab: {fileID: 0}
+  northConnections: []
+  eastConnections: []
+  southConnections: []
+  westConnections: []
+  upConnections: []
+  downConnections: []
